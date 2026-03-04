@@ -1,12 +1,21 @@
 import "../justfile"
 
 [no-cd]
-run:
+run:    
     java -jar /tmp/kt-solution.jar
 
 [no-cd]
 compile FILE:
-    kotlinc {{FILE}} -include-runtime -d /tmp/kt-solution.jar
+    #!/usr/bin/env -S fish --no-config
+    set sha256 (sha256sum {{FILE}} | cut -d ' ' -f 1)
+    if [ "$sha256" = (cat /tmp/kt-solution.sha 2>/dev/null || echo "") ]
+        echo "{{GREEN}}up to date{{NORMAL}}"
+        exit 0
+    else
+        echo "{{CYAN}}compiling...{{NORMAL}}"
+        echo $sha256 > /tmp/kt-solution.sha
+        kotlinc {{FILE}} -include-runtime -d /tmp/kt-solution.jar
+    end
 
 [no-cd]
 compile-run FILE:
