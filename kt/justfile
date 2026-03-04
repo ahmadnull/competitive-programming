@@ -1,0 +1,16 @@
+import "../justfile"
+
+[no-cd]
+run:
+    java -jar /tmp/kt-solution.jar
+
+[no-cd]
+compile FILE:
+    kotlinc {{FILE}} -include-runtime -d /tmp/kt-solution.jar
+
+[no-cd]
+compile-run FILE:
+    just compile {{FILE}}
+    just run
+
+alias cr := compile-run
