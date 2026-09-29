@@ -1,0 +1,6 @@
+p := ""
+
+run:
+    @if [ -z "{{p}}" ]; then echo "Error: No problem specified"; exit 1; fi
+    g++ {{p}}.cpp
+    ./a.out
