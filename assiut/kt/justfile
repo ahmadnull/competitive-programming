@@ -1,0 +1,8 @@
+import "../justfile"
+
+run:    
+    @just util-run "java -jar /tmp/kt-solution.jar"
+
+[no-cd]
+compile FILE:
+    @just util-compile "kt" "{{FILE}}" "kotlinc {{FILE}} -include-runtime -d /tmp/kt-solution.jar"
