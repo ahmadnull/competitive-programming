@@ -1,0 +1,5 @@
+p := ""
+
+run:
+    @if [ -z "{{p}}" ]; then echo "Error: No problem specified"; exit 1; fi
+    cd {{p}}; go run {{p}}.go
